@@ -10,10 +10,6 @@ S → AS|ASB| SB| S
 A → aAS|aS|a
 B → SbS| A|bb
 
-3
-S->অরণি নিরব
-A->ছোঁয়া B
-B->ভালোবাসা
 
 8
 S->NP VP
@@ -69,9 +65,21 @@ NP->ADJ NOUN|NOUN ADJ|PRONOUN NOUN|NP ADJ|NP NP
 VP->NOUN VERB|ADJ VP
 আমি সকাল দশটার প্লেনের টিকিট চাই
 S
+
+8
+S->NP VP|VP NP|NP S|NOUN VP|NP VERB
+PRONOUN->আমি
+NOUN->সকাল|টিকিট
+ADV->দশটায়
+ADJ->প্লেনের
+VERB->চাই
+NP->PRONOUN NOUN|NOUN ADV|ADJ NOUN|NOUN NP
+VP->ADV VERB|VERB ADJ|NP VERB|VP ADJ|VERB NP
+আমি সকাল দশটায় চাই প্লেনের টিকিট
+S
 '''
 
-
+from tabulate import tabulate
 
 def epsilon_remove(i_val):                          #Removes "epsilon" productions
     non_terminal = inp_gram[i_val].split("->")      #non_terminal[0] will contain for which nonterminal "epsilon" comes
@@ -122,15 +130,19 @@ def remove_duplicate(val_i):
 
 
 #Starting main program
-print("Number of productions please Aroni :-): ")
-n = int(input())                        #Number of productions
+#reading from file
+with open("input.txt",'r',encoding = 'utf-8') as f:
+    con = f.readlines()
+print("Number of productions please : ")
+n = int(con[0])                        #Number of productions
 inp_gram = []                           #Here we store all the production rules
 new_production_rules = []               #Here new rules will be added
 mapping = {}                            #Here terminals will be mapped to corresponding non-terminal,for example...S->aAS|aa|AS to S->XAS|XX|AS... "a" will be mapped to "X" here
 counter = 0                                   #For mapping to terminals, like Xk=X0; Xk=x1. so, Xk->a,Xk->b equivalent to X0->a,X1->b and so on.
-print("Grammer please Partner: ")
-for i in range(n):
-    inp_gram.append(input())            #inp_gram will contain all the productions; this is a list
+print("Grammer please : ")
+for i in range(1,n+1):
+    temp_s = con[i]
+    inp_gram.append(temp_s[0:len(temp_s)-1])            #inp_gram will contain all the productions; this is a list
 s0 = inp_gram[0].split('->')            #S->ASB will be splited into S and ASB
 inp_gram.append("S0->"+s0[0])           #S0->S will be appended
 #We will start removing "epsilon" productions now
@@ -217,7 +229,7 @@ for i in range(len(inp_gram)):
 
 for x,y in mapping.items():
     inp_gram.append(x+"->"+y)
-print(inp_gram)
+#print(inp_gram)
 
 # Now lets start CYK Algorithm
 import numpy as ARRAY
@@ -232,13 +244,14 @@ for i in range(len(inp_gram)):
         cnf_store[i][k] = snd_div[j]
         k += 1
 
-print(cnf_store)
+#print(cnf_store)
 # Now we'll receive input from you in bangla.
 print("Give the input language...")
-input_sentence = input().split(" ")
+input_sentence = con[n+1].split(" ")
+for_tabular_show = con[n+1]     #To show in tabular form
 print("Give start symbol...")
-st = input()
-cnf_table = ARRAY.zeros((len(input_sentence)+1, len(input_sentence)+1), dtype=object)
+st = con[n+2]
+cnf_table = ARRAY.zeros((len(input_sentence)+2, len(input_sentence)), dtype=object)
 #For each input terminal , now we proceed to 1st step derivation
 '''
     Suppose we have grammer
@@ -252,7 +265,7 @@ cnf_table = ARRAY.zeros((len(input_sentence)+1, len(input_sentence)+1), dtype=ob
     cnf_store[1,0] that is A --- equivalent to cnf_store[positions[0][0]][0]
     cnf_store[2,0] that is B --- equivalent to cnf_store[positions[1][0]][0]
 '''
-for i in range(1, len(input_sentence)+1):
+for i in range(1, len(input_sentence)):
     positions = ARRAY.argwhere(cnf_store == input_sentence[i-1])
     if len(positions) > 0:
         m = []
@@ -262,26 +275,28 @@ for i in range(1, len(input_sentence)+1):
 #print(cnf_table)
 # Now we'll do rest of the derivations
 
-for j in range(2, len(input_sentence)+1):
+for j in range(2, len(input_sentence)):
     sol1 = 1
-    for i in range(j, len(input_sentence)+1):
+    for i in range(j, len(input_sentence)):
         tp = []
         temp = []
         for k in range(1, j):
             dif_with_j = j-k
             l1 = (cnf_table[k][sol1])
             l2 = (cnf_table[dif_with_j][k+sol1])
+            '''
             print("This is K: ",k)
             print("This is dif: ",dif_with_j)
             print("This is sol1:", sol1)
             print(l1)
             print(l2)
+            '''
             if len(str(l1)) and len(str(l2)) != -99999999999:
 
                 for l1_i in range(len(l1)):
                     for l2_i in range(len(l2)):
                         string_new = l1[l1_i] + " " + l2[l2_i]
-                        print("This is new str:", string_new)
+                        #print("This is new str:", string_new)
                         p = ARRAY.argwhere(cnf_store == string_new)
                         #print("This is P:",p)
                         if len(p) > 0:
@@ -289,19 +304,26 @@ for j in range(2, len(input_sentence)+1):
                                 tp = cnf_store[p[p_i][0]][0]
                                 #temp += tp
                                 temp.append(tp)
-                                print("This is temp: ",temp)
+                                #print("This is temp: ",temp)
                 cnf_table[j][sol1] = temp
-                print("This is tempFinal: ", temp)
+                #print("This is tempFinal: ", temp)
         sol1 += 1
-
-print(cnf_table)
-
-if st in cnf_table[len(input_sentence)][1]:
+#for showing in tabular from we do it
+print(for_tabular_show)
+inp_sen = "X " + for_tabular_show
+inp_sen_sp = inp_sen.split(" ")
+print(tabulate(cnf_table[1:len(input_sentence)], headers=inp_sen_sp, tablefmt='orgtbl'))
+#print(cnf_table[0:len(input_sentence)])
+start_symbol = st[0]
+if start_symbol in cnf_table[len(input_sentence)-1][1]:
     print("Input is correct!")
+'''
+print(st)
+print(cnf_table[len(input_sentence)][1])
 
-
-
-
+if start_symbol in cnf_table[len(input_sentence)-2][1]:
+    print("YES")
+'''
 
 
 
