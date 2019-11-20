@@ -176,7 +176,7 @@ while is_done == 1:
                 inp_gram[i] = r8_side[0] + "->"
                 for k in range(len(r8_split)):
                     if k != j:
-                        inp_gram[i] = inp_gram[i] + r8_split[k] +"|"
+                        inp_gram[i] = inp_gram[i] + str(r8_split[k]) +"|"
                     else:
                         is_done = 1
                         r8_split[k] = unit_production_reduction(r8_split[k],i)    #sending unit production and production number
@@ -305,14 +305,16 @@ for j in range(2, len(input_sentence)):
                                 #temp += tp
                                 temp.append(tp)
                                 #print("This is temp: ",temp)
+                #Delete duplicates
+                temp=list(dict.fromkeys(temp))
                 cnf_table[j][sol1] = temp
                 #print("This is tempFinal: ", temp)
         sol1 += 1
 #for showing in tabular from we do it
 print(for_tabular_show)
-inp_sen = "X " + for_tabular_show
+inp_sen = for_tabular_show
 inp_sen_sp = inp_sen.split(" ")
-print(tabulate(cnf_table[1:len(input_sentence)], headers=inp_sen_sp, tablefmt='orgtbl'))
+print(tabulate(cnf_table[1:len(input_sentence),1:], headers=inp_sen_sp, tablefmt='orgtbl'))
 #print(cnf_table[0:len(input_sentence)])
 start_symbol = st[0]
 if start_symbol in cnf_table[len(input_sentence)-1][1]:
