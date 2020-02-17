@@ -1,39 +1,15 @@
 10
-NOUN->সময়সূচী
-ADJ->বিমানের|আগামীকালের|বাংলাদেশ|ADJ ADJ
-IV->জানতে
-TV->পারি
-QS->কি
-NP->NOUN ADJ|ADJ NOUN|NOUN IV|NP IV|NP NOUN|NP NP|ADJ NP
-VP->IV TV|NOUN VP|NP VP
-TS->TV QS
-VS->VP QS|NOUN VS|NP VS|NP VP
-S->NP VS|NP VP|S S
-বাংলাদেশ বিমানের আগামীকালের সময়সূচী জানতে পারি কি 
-S
-
-
-7
-PRONOUN->আমি
-ADJ->আকাশপথে|ঢাকার|ADJ
+PRONOUN->আপনি
+ADJ->ঢাকার|প্লেনের
+QS->কোন|ADJ QS|QS ADJ
 NOUN->টিকিট
-TV->চাই
-NP->PRONOUN ADJ|ADJ NOUN|PRONOUN NP|NP NOUN
+TV->চান
+NP->PRONOUN ADJ|ADJ NOUN
 VP->NOUN TV|NP TV
-S->NP VP|NP TV
-আমি আকাশপথে ঢাকার টিকিট চাই 
-S
-
-
-7
-PRONOUN->আমাকে
-ADJ->বিমানের
-NOUN->সময়সূচী
-VERB->জানান
-NP->PRONOUN ADJ|ADJ NOUN|NP NOUN
-VP->NOUN VERB|NP VERB
-S->NP VP
-আমাকে বিমানের সময়সূচী জানান 
+NS->QS NOUN|NP QS|QS NP|PRONOUN QS|NS NS|NS NP
+VS->QS VP|NS TV
+S->NS VP
+আপনি ঢাকার কোন প্লেনের টিকিট চান 
 S
 
 
@@ -50,7 +26,6 @@ S->NS VP
 আপনি কোন দেশে যেতে চান 
 S
 
-
 12
 NOUN->বিমান
 ADV->দেরিতে
@@ -62,25 +37,33 @@ NP->NOUN ADV
 VP->ADV TV|IV TV|JOIN VP
 VS->TV QS|VP QS|VS JOIN|VS IS|VS IV|VS VP
 IS->JOIN IV
-S->NP VP|NP VS|NS VS
+S->NP VP|NP VS|NS VS|NOUN VP
 NS->NP VS
 বিমান দেরিতে ছাড়বে কিনা সেটা জানতে চাই 
 S
 
-10
-PRONOUN->আপনি
-ADJ->ঢাকার|প্লেনের
-QS->কোন|ADJ QS|QS ADJ
-NOUN->টিকিট
-TV->চান
-NP->PRONOUN ADJ|ADJ NOUN
-VP->NOUN TV|NP TV
-NS->QS NOUN|NP QS|QS NP|PRONOUN QS|NS NS
-VS->QS VP|NS TV
-S->NS VP
-আপনি ঢাকার কোন প্লেনের টিকিট চান 
+
+7
+PRONOUN->আমাকে
+ADJ->বিমানের
+NOUN->সময়সূচী
+VERB->জানান
+NP->PRONOUN ADJ|ADJ NOUN|NP NOUN
+VP->NOUN VERB|NP VERB
+S->NP VP
+আমাকে বিমানের সময়সূচী জানান 
 S
 
+7
+PRONOUN->আমি
+ADJ->আকাশপথে|ঢাকার|ADJ ADJ
+NOUN->টিকিট
+TV->চাই
+NP->PRONOUN ADJ|ADJ NOUN|PRONOUN NP|NP NOUN
+VP->NOUN TV|NP TV
+S->NP VP|NP TV
+আমি আকাশপথে ঢাকার টিকিট চাই 
+S
 
 7
 NOUN->নভোএয়ার|ফ্লাইট|যশোর
@@ -88,11 +71,10 @@ PRE->এর
 PREPOSITION->থেকে
 QS->কয়টায়
 NP->NOUN PRE|NOUN NP|NP NP|NP NOUN|NOUN PREPOSITION
-NS->NOUN QS|NOUN NP QS
+NS->NP QS|NOUN NP QS
 S->NP NS
 নভোএয়ার এর ফ্লাইট যশোর থেকে কয়টায় 
 S
-
 
 6
 NOUN->বিমান|বাংলাদেশ|সময়সূচী
@@ -103,7 +85,6 @@ NS->NOUN QS|NP QS
 S->NP QS
 বিমান বাংলাদেশ এর সময়সূচী কি 
 S
-
 
 8
 NOUN->সময়সূচী|ভাড়া|ঢাকা|চট্রগ্রাম|শিডিউল
@@ -117,15 +98,13 @@ S->NP QS
 ঢাকা থেকে চট্রগ্রাম এর শিডিউল কি 
 S
 
-
-
 8
 PRONOUN->আমি
 ADV->গতকাল
 NOUN->ফ্লাইট
 IV->মিস
 TV->করেছি
-NP->PRONOUN ADV|ADV NOUN|NP NOUN|NP NP
+NP->PRONOUN ADV|ADV NOUN|NP NOUN|NP NP|NOUN IV
 VP->IV TV|NOUN VP|NP VP
 S->NP VP
 আমি গতকাল ফ্লাইট মিস করেছি 
@@ -139,9 +118,9 @@ PREPOSITION->থেকে
 PRE->এর
 TV->হবে
 NP->NOUN PRE|ADJ NOUN|NP ADJ|NP NP|PP NP|NOUN|NP PP|ADJ NP|MOD NP
-VP->NOUN TV|NP TV
+VP->NOUN TV|NP TV|TV
 PP->NOUN PREPOSITION NOUN|PP PRE
-S->NP TV
+S->NP VP
 ADV->আগামী|ADV DATE
 MOD->DATE PP|ADV PP|ADV ADJ|DATE ADJ|MOD MOD
 আগামী ২৫ডিসেম্বর ঢাকা থেকে খুলনা এর কোন টিকিট হবে 
@@ -154,7 +133,7 @@ NOUN->টিকিট
 QS->কখন
 IV->পাওয়া
 TV->যাবে
-NP->ADJ NOUN|ADJ NOUN|PRONOUN|NOUN
+NP->ADJ NOUN|ADJ NP|PRONOUN|NOUN
 NS->NOUN QS|NP QS|NS IV|ADJ NS|NS QS|NP IS
 IS->QS IV
 VP->IV TV
@@ -163,40 +142,33 @@ S->NS VP
 আগামীকাল রাতের খুলনা যাওয়ার টিকিট কখন পাওয়া যাবে 
 S
 
-
 10
 PRONOUN->আমি
-QS->কি|QS ADJ|QS NP
+QS->কি|QS ADJ
 ADJ->আগামীকাল|রাতের|ADJ ADJ
 NOUN->টিকিট
 IV->বাতিল|করতে|IV IV
 TV->পারি
-NP->PRONOUN QS|ADJ NOUN|NOUN NOUN|NOUN IV|PRONOUN IV|ADJ NP|NP IV
-NS->PRONOUN QS|NP VP|NS ADJ|NS NP|NS QS
+NP->ADJ NOUN|NOUN NOUN|NOUN IV|PRONOUN|ADJ NP|NP IV|NOUN
+NS->PRONOUN QS|NS ADJ|NS NP|NP QS|QS NP
 VP->NP VP|IV TV|NOUN VP|NP TV|QS VP
 S->NS VP
 আমি কি আগামীকাল রাতের টিকিট বাতিল করতে পারি 
 S
 
-
-
-10
-PRONOUN->আমি
-QS->কি|QS ADJ|QS NP
-ADJ->আগামীকাল|রাতের|ADJ ADJ
-NOUN->টিকিট
-IV->বাতিল|করতে|IV IV
-TV->পারি
-NP->PRONOUN QS|ADJ NOUN|NOUN NOUN|NOUN IV|PRONOUN IV|ADJ NP|NP IV
-NS->PRONOUN QS|NP VP|NS ADJ|NS NP|NS QS
-VP->NP VP|IV TV|NOUN VP|NP TV|QS VP
-S->NS VP
-আমি কি আগামীকাল রাতের টিকিট বাতিল করতে পারি 
+6
+ADJ->আগামীকাল|সকালে|দুইটা|যাওয়ার|ADJ ADJ
+NOUN->টিকিট|দাম
+PRE->এর
+QS->কত|NOUN QS
+NP->ADJ NOUN|NOUN PRE|ADJ NP|NP NP|NP NOUN
+S->NP QS|NP VP|VP NP
+আগামীকাল সকালে ঢাকা যাওয়ার দুইটা টিকিট এর দাম কত 
 S
 
 10
 PRONOUN->আমি
-QS->কি|QS ADJ|QS NP
+QS->কি|QS ADJ
 ADJ->যাওয়ার|এখন|কোন|খুলনা|ADJ ADJ
 NOUN->ফ্লাইট
 IV->পেতে
@@ -208,6 +180,7 @@ S->NP VP|VP NP|NS VP
 আমি কি এখন কোন ফ্লাইট পেতে পারি খুলনা যাওয়ার 
 S
 
+
 11
 PRONOUN->আমি
 NOUN->দিনাজপুর|টিকিট
@@ -218,24 +191,40 @@ TV->পারি
 QS->কি
 NP->PRONOUN NOUN|NOUN ADJ|ADJ NOUN|NOUN ADV|PRONOUN NP|NP NOUN|NOUN NP|NP ADV|NP NP|NP ADV|NP IV|NP VP
 VP->NP VP|IV TV|TV
-VS->TV QS|VP VS
+VS->TV QS|VP VS|VP QS
 S->NP VP|VP NP|NP VS
 আমি দিনাজপুর যাওয়ার টিকিট আজকে পেতে পারি কি 
 S
 
 
-6
-ADJ->আগামীকাল|সকালে|দুইটা|যাওয়ার|ADJ ADJ
-NOUN->টিকিট|দাম
-PRE->এর
-QS->কত|NOUN QS
-NP->ADJ NOUN|PRE NOUN|NOUN PRE
-S->NP QS|NP VP|VP NP
-আগামীকাল সকালে ঢাকা যাওয়ার দুইটা টিকিট এর দাম কত 
+10
+NOUN->সময়সূচী
+ADJ->বিমানের|আগামীকালের|বাংলাদেশ|ADJ ADJ
+IV->জানতে
+TV->পারি
+QS->কি
+NP->NOUN ADJ|ADJ NOUN|NOUN IV|NP IV|NP NOUN|NP NP|ADJ NP
+VP->IV TV|NOUN VP|NP VP
+TS->TV QS
+VS->VP QS|NOUN VS|NP VS|NP VP
+S->NP VS|NP VP|S S
+বাংলাদেশ বিমানের আগামীকালের সময়সূচী জানতে পারি কি 
 S
 
 
-
+10
+PRONOUN->আমি
+QS->কি|QS ADJ|QS NP
+ADJ->আগামীকাল|রাতের|ADJ ADJ
+NOUN->টিকিট
+IV->বাতিল|করতে|IV IV
+TV->পারি
+NP->PRONOUN QS|ADJ NOUN|NOUN NOUN|NOUN IV|PRONOUN IV|ADJ NP|NP IV
+NS->PRONOUN QS|NP VP|NS ADJ|NS NP|NS QS
+VP->NP VP|IV TV|NOUN VP|NP TV|QS VP
+S->NS VP
+আমি কি আগামীকাল রাতের টিকিট বাতিল করতে পারি 
+S
 
 
 9

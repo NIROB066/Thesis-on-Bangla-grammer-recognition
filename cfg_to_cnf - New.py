@@ -165,23 +165,15 @@ def remove_duplicate(val_i):
 # Starting main program
 # reading from file
 con = [
-    '16 ',
-    'NP->Pronoun Noun|Noun Det|Det Noun|Pronoun NP|Pronoun Aux|Adjective Noun|Adjective NP|NP NP|Noun Noun|Noun|NP Noun|Noun Aux|NP Aux|Noun Aux Noun|NP Aux Noun|Pronoun NP|NP Adjective|Pronoun|Pronoun Aux Pronoun|Pronoun Aux Adjective Noun|Pronoun Aux NP|Pronoun Wh|Wh Noun|Pronoun Wh Noun|Wh Noun Noun|Pronoun Wh NP|Wh Noun Pronoun|Pronoun Adjective Noun|Modifier Noun|Pronoun Modifier Noun|Noun Adjective Noun|Noun Modifier Noun|Pronoun Modifier Noun|Noun NP|Noun Aux NP|Noun Aux Adjective Noun|Adjective Det Noun|Pronoun Aux Pronoun|Pronoun Aux Pronoun Noun|Pronoun Noun Adjective Noun|Pronoun Aux NP|Pronoun Aux Noun|Pronoun Aux Pronoun Noun|Pronoun Pronoun|Pronoun Pronoun Noun|Pronoun Noun Noun|Pronoun Noun Wh|NP Wh|Pronoun Noun Wh|Noun Conj Noun|Pronoun Conj Noun|Pronoun Conj Pronoun|Pronoun Noun Conj Noun|Adjective Noun Wh|Adjective Noun Conj|Adjective Noun Adjective Noun|Noun Adjective Noun Conj|Noun Pronoun Conj Pronoun|Noun Pronoun Adjective|Noun Noun Conj Pronoun|Noun Noun Conj Pronoun|Pronoun Adjective|Pronoun Pronoun conj Pronoun|Modifier Conj Adjective|Noun Pre Noun|Noun Pre|Adjective Noun ',
+    '8 ',
+	'S->NP VP|NP Wh|NP Aux Adjective|NP Wh VP|NP VP Aux|Wh NP VP|Adverb VP ',
+    'NP->Pronoun Noun|Det Noun|Pronoun NP|Pronoun Aux|Adjective Noun|Adjective NP|NP NP|Noun Noun|Noun|NP Noun|Noun Aux|NP Aux|Noun Aux Noun|NP Aux Noun|Pronoun NP|NP Adjective|Pronoun|Pronoun Aux Pronoun|Pronoun Aux Adjective Noun|Pronoun Aux NP|Pronoun Wh|Wh Noun|Pronoun Wh Noun|Wh Noun Noun|Pronoun Wh NP|Wh Noun Pronoun|Pronoun Adjective Noun|Modifier Noun|Pronoun Modifier Noun|Noun Adjective Noun|Noun Modifier Noun|Pronoun Modifier Noun|Noun NP|Noun Aux NP|Noun Aux Adjective Noun|Adjective Det Noun|Pronoun Aux Pronoun|Pronoun Aux Pronoun Noun|Pronoun Noun Adjective Noun|Pronoun Aux NP|Pronoun Aux Noun|Pronoun Aux Pronoun Noun|Pronoun Pronoun|Pronoun Pronoun Noun|Pronoun Noun Noun|Pronoun Noun Wh|NP Wh|Pronoun Noun Wh|Noun Conj Noun|Pronoun Conj Noun|Pronoun Conj Pronoun|Pronoun Noun Conj Noun|Adjective Noun Wh|Adjective Noun Conj|Adjective Noun Adjective Noun|Noun Adjective Noun Conj|Noun Pronoun Conj Pronoun|Noun Pronoun Adjective|Noun Noun Conj Pronoun|Noun Noun Conj Pronoun|Pronoun Adjective|Pronoun Pronoun conj Pronoun|Modifier Conj Adjective|Noun Pre Noun|Noun Pre|Adjective Noun ',
 	'VP->IV TV|Noun IV|TV|Adverb TV|TV Aux|Adjective Noun TV|Noun TV|Noun Noun TV|Adverb IV|IV IV TV|Noun Aux Adverb IV|Adverb IV IV TV|Adverb IV IV|Adjective Noun Aux Adverb IV|Noun Aux Adverb IV IV|Noun Aux Adverb IV|Pronoun IV|Wh Noun Pronoun IV|Noun TV|Adjective Noun TV|Modifier Noun TV|Adjective Noun IV|Noun VP|Noun IV TV|Noun Adjective Noun IV|TV Aux|VP Aux|IV TV Aux|Adverb TV Aux|Noun Adjective Noun IV|Wh TV|Adverb TV|Noun Conj Noun IV|Pronoun Aux VP|Noun IV TV Neg|Noun TV Neg|TV Neg|Noun TV Adverb|IV TV Adverb|Pronoun Adjective TV|Pronoun IV TV Neg|Noun TV TV|Pronoun TV TV|Pronoun TV TV Neg|TV Adjective Noun|IV TV Adjective Noun|TV Adjective Pronoun|IV TV Adjective Pronoun|Adjective Noun TV Neg|Adjective TV ',
 	'Adjective->Adj|Adjective Adj ',
 	'Pronoun->আমি|আপনাদের|আপনি|আমাকে|আপনার|আমি|আমাকে|আমার ',
 	'Aux->কি ',
-	'Adverb->দেরি|এখন|দুপুরে|বিকালে|রাতে|নাস্তার|আজকে|উপরে|বিলম্ব|বিলম্বে ',
-	'Noun->টিকেট|টিকিট|সিট|আসন|হ্যান্ডক্যারি|মালামাল|মূল্য|সেবা|ব্যবস্থা|অনলাইনে|অনলাইন|ফ্লাইট|সিটবেল্ট|শ্রেণী|শ্রেণি|ক্লাস|সময়|খাবার|বিমানে|বিমান|পরিবহন|পরিবহনে|কার্ড|পাসপপোর্ট|বাগপত্র|ব্যাগ|থলে|বালিশ|কম্বল|ঘন্টা|শনিবার|রবিবার|সোমবার|মঙ্গলবার|বুধবার|বৃহস্পতিবার|শুক্রবার|সময়সূচি|দাম|ঢাকা|খুলনা|সিলেট|চট্টগ্রাম|বরিশাল|রংপুর|যশোর|সৈয়দপুর|রাজশাহী|তথ্য ',
-	'Adj->মালামালের|জানালার|ধারের|১ক|১খ|২ক|২খ|বিমানের|প্লেনের|টিকিটের|টিকেটের|সম্ভব|ফিরতযোগ্য|ফেরতযোগ্য|সঠিক|আজকের|পাশের|শ্রেণির|শ্রেণীর|নাস্তার|বেশি|আজকে|বোর্ডিং|পরবর্তী|এক|দুই|তিন|চার|পাঁচ|ছয়|সাত|আট|নয়|দশ|একটা|দুইটা|তিনটা|চারটা|পাঁচটা|ছয়টা|সাতটা|আটটা|নয়টা|দশটা|শনিবার|রবিবার|সোমবার|মঙ্গলবার|বুধবার|বৃহস্পতিবার|শুক্রবার|ঢাকার|কালকের|খুলনার|সিলেটের|চট্টগ্রামের|বরিশালের|রংপুরের|যশোরের|সৈয়দপুরের|রাজশাহীর|বিজনেসক্লাস|দুপুরের|রাতের|সকালের|বিকালের|সন্ধ্যার ',
-	'Det->টি|সব|কোনো ',
-	'Wh->কত|কোন|কখন|কি|কোথায়|কবে ',
-	'IV->করতে|বাতিল|পেতে|পাওয়া|বাধতে|সাহায্য|সংরক্ষণ|বুকিং|করে|ভ্রমন|লাগতে|দেখতে|রাখতে|দিতে|জমা|জানতে|IV IV ',
-	'TV->চাই|পারি|সম্ভব|যাবে|আছে|পারেন|চান|রাখবেন|করবেন|দিবেন|পারে|পারি|রাখব|পারবেন|দিবেন|দেবেন|ছাড়বে|ছাড়ব|দেন|দিন|কাটব|হবে ',
-	'Modifier->Adverb Adjective ',
-	'Conj->ও|এবং|কিন্তু|পরে|পর ',
-	'Pre->থেকে|হতে|চেয়ে ',
-	'S->NP VP|NP Wh|NP Aux Adjective|NP Wh VP|NP VP Aux|Wh NP VP|Adverb VP ',
+	'Adverb->দেরি|এখন|দুপুরে|বিকালে|রাতে|নাস্তার|আজকে|উপরে ',
+	'Noun->টিকেট|টিকিট|সিট|আসন|হ্যান্ডক্যারি|মালামাল|মূল্য|সার্ভিস|ব্যবস্থা|অনলাইনে|অনলাইন|ফ্লাইট|সিটবেল্ট|শ্রেণী|শ্রেণি|ক্লাস|সময়|খাবার|বিমানে|বিমান|পরিবহন|পরিবহনে|কার্ড|পাসপপোর্ট|বাগপত্র|ব্যাগ|থলে|বালিশ|কম্বল|ঘন্টা|শনিবার|রবিবার|সোমবার|মঙ্গলবার|বুধবার|বৃহস্পতিবার|শুক্রবার|সময়সূচি|দাম|ঢাকা|খুলনা|সিলেট|চট্টগ্রাম|বরিশাল|রংপুর|যশোরসৈয়দপুর|রাজশাহী ',
 	'S '
 ]
 print("Number of productions please : ")
@@ -287,7 +279,7 @@ for x, y in mapping.items():
 # Now lets start CYK Algorithm
 import numpy as ARRAY
 
-cnf_store = ARRAY.zeros((1000, 150),
+cnf_store = ARRAY.zeros((10000, 100),
                         dtype=object)  # we'll store like S->A B|a like this; cnf_store[0][0]=S; [0][1]=A; [0][2]=B; [0][3]=a.
 for i in range(len(inp_gram)):
     k = 0  # We want to store [][k], [][k+1] ... in cnf_store

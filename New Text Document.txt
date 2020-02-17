@@ -1,0 +1,1 @@
+(base) C:\Users\riyar\OneDrive\Desktop\New folder>pyinstaller -w -F -i "C:\Users\riyar\OneDrive\Desktop\Thesis App\17_122771.ico" cfg_to_cnf.py
