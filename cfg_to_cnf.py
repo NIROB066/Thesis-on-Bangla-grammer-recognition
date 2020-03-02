@@ -1,106 +1,32 @@
-'''
-Took an example of
-3
-S->A S B
-A->a A S|a|epsilon
-B->S b S|A|b b
-
-S0->S
-S → AS|ASB| SB| S
-A → aAS|aS|a
-B → SbS| A|bb
-
-
-8
-S->NP VP
-NP->PRONOUN NOUN
-NP->ADJ ADJ NOUN|NOUN NP
-VP->NOUN VERB
-PRONOUN->আমি
-NOUN->সকাল|টিকিট
-ADJ->দশটার|প্লেনের
-VERB->চাই
-
-8
-S->NP VP
-NP->PRONOUN NOUN
-NP->ADJ NOUN|NOUN NP
-VP->NOUN VERB
-PRONOUN->আমি
-NOUN->সকাল|টিকিট
-ADJ->দশটার|প্লেনের
-VERB->চাই
-
-
-6
-S->AA BB|বীর|MANGO AA
-AA->শূন্য|কি
-BB->কি
-MANGO->S AA
-P->S BB
-NIROB->AA AA
-বীর কি শূন্য
-S
-
-
-7
-S->NP VP|VP NP|NP S|NOUN VP|NP VERB
-PRONOUN->আমি
-NOUN->সকাল|টিকিট
-ADJ->দশটার|প্লেনের|ADJ ADJ
-VERB->চাই
-NP->ADJ NOUN|NOUN ADJ|PRONOUN NOUN|NP ADJ|NP NP|NOUN NP|NP NOUN
-VP->NOUN VERB|ADJ VP|NP VERB
-আমি সকাল দশটার প্লেনের টিকিট চাই
-S
-
-
-7
-S->NP VP|VP NP|NP S
-PRONOUN->আমি
-NOUN->সকাল|টিকিট
-ADJ->দশটার|প্লেনের|ADJ ADJ
-VERB->চাই
-NP->ADJ NOUN|NOUN ADJ|PRONOUN NOUN|NP ADJ|NP NP
-VP->NOUN VERB|ADJ VP
-আমি সকাল দশটার প্লেনের টিকিট চাই
-S
-
-8
-S->NP VP|VP NP|NP S|NOUN VP|NP VERB
-PRONOUN->আমি
-NOUN->সকাল|টিকিট
-ADV->দশটায়
-ADJ->প্লেনের
-VERB->চাই
-NP->PRONOUN NOUN|NOUN ADV|ADJ NOUN|NOUN NP
-VP->ADV VERB|VERB ADJ|NP VERB|VP ADJ|VERB NP
-আমি সকাল দশটায় চাই প্লেনের টিকিট
-S
-'''
 #For Bangla
 from bijoy2unicode import converter
 #For Bangla
 # Tkinter APP code
-def clear_widget(widget1,widget2):
+#Clear Button
+
+def clear_widget(widget1):
     widget1.destroy()
-    widget2.destroy()
+    #widget2.destroy()
 label0=""
+#clear  Button
 import tkinter as tk
+from tkinter import messagebox
+
 
 root = tk.Tk()
-large_font = ('Kalpurush ANSI', 30)
+root.title("Welcome to Bangla Language Pattern Detection APP")
+large_font = ('Kalpurush', 30)
 
 canvas1 = tk.Canvas(root, width=800, height=750, relief='raised')
 canvas1.pack()
 
 label1 = tk.Label(root, text='Bangla Language Pattern Detection')
-label1.config(font=('Times', 18, 'bold', 'italic'))
+label1.config(font=('Times',24 , 'bold', 'italic'))
 canvas1.create_window(400, 75, window=label1)
 
 label2 = tk.Label(root, text='Type your Input sentence (বাংলাতে):')
-label2.config(font=('helvetica', 14))
-canvas1.create_window(400, 150, window=label2)
+label2.config(font=('helvetica', 18))
+canvas1.create_window(400, 135, window=label2)
 
 entry1 = tk.Entry(root, width=30, bd=5, font=large_font)
 
@@ -126,15 +52,13 @@ def epsilon_remove(i_val):  # Removes "epsilon" productions
                 else:
                     temp = all_rhs[all_rhs_len]
                     replc = all_rhs[all_rhs_len].index(non_terminal[0])  # Detecting index of non-terminal A
-                    inp_gram[length] = inp_gram[length] + "|" + temp[:replc] + temp[
-                                                                               replc + 2:]  # for A->a A S, replc will be 2;temp[:replc] will be"a ";temp[replc+2:] will be "S"
+                    inp_gram[length] = inp_gram[length] + "|" + temp[:replc] + temp[replc + 2:]  # for A->a A S, replc will be 2;temp[:replc] will be"a ";temp[replc+2:] will be "S"
                     if replc + 2 > len(temp) - 1:  # If "B" to be replaced from "A S B"; we will have "A S "
                         temp = inp_gram[length]
                         inp_gram[length] = temp[:len(temp) - 1]  # reduct extra space from "A S "; result is "A S"
 
 
-def unit_production_reduction(single_production,
-                              val_i):  # B->A ; these type of production will be replaced by A → a A S|a S|a ; result B->a A S|a S|a
+def unit_production_reduction(single_production, val_i):  # B->A ; these type of production will be replaced by A → a A S|a S|a ; result B->a A S|a S|a
     for search in range(len(inp_gram)):
         left_side = inp_gram[search].split("->")
         if single_production == left_side[0]:
@@ -164,31 +88,15 @@ def remove_duplicate(val_i):
 
 # Starting main program
 # reading from file
-con = [
-    '16 ',
-    'NP->Pronoun Noun|Noun Det|Det Noun|Pronoun NP|Pronoun Aux|Adjective Noun|Adjective NP|NP NP|Noun Noun|Noun|NP Noun|Noun Aux|NP Aux|Noun Aux Noun|NP Aux Noun|Pronoun NP|NP Adjective|Pronoun|Pronoun Aux Pronoun|Pronoun Aux Adjective Noun|Pronoun Aux NP|Pronoun Wh|Wh Noun|Pronoun Wh Noun|Wh Noun Noun|Pronoun Wh NP|Wh Noun Pronoun|Pronoun Adjective Noun|Modifier Noun|Pronoun Modifier Noun|Noun Adjective Noun|Noun Modifier Noun|Pronoun Modifier Noun|Noun NP|Noun Aux NP|Noun Aux Adjective Noun|Adjective Det Noun|Pronoun Aux Pronoun|Pronoun Aux Pronoun Noun|Pronoun Noun Adjective Noun|Pronoun Aux NP|Pronoun Aux Noun|Pronoun Aux Pronoun Noun|Pronoun Pronoun|Pronoun Pronoun Noun|Pronoun Noun Noun|Pronoun Noun Wh|NP Wh|Pronoun Noun Wh|Noun Conj Noun|Pronoun Conj Noun|Pronoun Conj Pronoun|Pronoun Noun Conj Noun|Adjective Noun Wh|Adjective Noun Conj|Adjective Noun Adjective Noun|Noun Adjective Noun Conj|Noun Pronoun Conj Pronoun|Noun Pronoun Adjective|Noun Noun Conj Pronoun|Noun Noun Conj Pronoun|Pronoun Adjective|Pronoun Pronoun conj Pronoun|Modifier Conj Adjective|Noun Pre Noun|Noun Pre|Adjective Noun ',
-	'VP->IV TV|Noun IV|TV|Adverb TV|TV Aux|Adjective Noun TV|Noun TV|Noun Noun TV|Adverb IV|IV IV TV|Noun Aux Adverb IV|Adverb IV IV TV|Adverb IV IV|Adjective Noun Aux Adverb IV|Noun Aux Adverb IV IV|Noun Aux Adverb IV|Pronoun IV|Wh Noun Pronoun IV|Noun TV|Adjective Noun TV|Modifier Noun TV|Adjective Noun IV|Noun VP|Noun IV TV|Noun Adjective Noun IV|TV Aux|VP Aux|IV TV Aux|Adverb TV Aux|Noun Adjective Noun IV|Wh TV|Adverb TV|Noun Conj Noun IV|Pronoun Aux VP|Noun IV TV Neg|Noun TV Neg|TV Neg|Noun TV Adverb|IV TV Adverb|Pronoun Adjective TV|Pronoun IV TV Neg|Noun TV TV|Pronoun TV TV|Pronoun TV TV Neg|TV Adjective Noun|IV TV Adjective Noun|TV Adjective Pronoun|IV TV Adjective Pronoun|Adjective Noun TV Neg|Adjective TV ',
-	'Adjective->Adj|Adjective Adj ',
-	'Pronoun->আমি|আপনাদের|আপনি|আমাকে|আপনার|আমি|আমাকে|আমার ',
-	'Aux->কি ',
-	'Adverb->দেরি|এখন|দুপুরে|বিকালে|রাতে|নাস্তার|আজকে|উপরে|বিলম্ব|বিলম্বে ',
-	'Noun->টিকেট|টিকিট|সিট|আসন|হ্যান্ডক্যারি|মালামাল|মূল্য|সেবা|ব্যবস্থা|অনলাইনে|অনলাইন|ফ্লাইট|সিটবেল্ট|শ্রেণী|শ্রেণি|ক্লাস|সময়|খাবার|বিমানে|বিমান|পরিবহন|পরিবহনে|কার্ড|পাসপপোর্ট|বাগপত্র|ব্যাগ|থলে|বালিশ|কম্বল|ঘন্টা|শনিবার|রবিবার|সোমবার|মঙ্গলবার|বুধবার|বৃহস্পতিবার|শুক্রবার|সময়সূচি|দাম|ঢাকা|খুলনা|সিলেট|চট্টগ্রাম|বরিশাল|রংপুর|যশোর|সৈয়দপুর|রাজশাহী|তথ্য ',
-	'Adj->মালামালের|জানালার|ধারের|১ক|১খ|২ক|২খ|বিমানের|প্লেনের|টিকিটের|টিকেটের|সম্ভব|ফিরতযোগ্য|ফেরতযোগ্য|সঠিক|আজকের|পাশের|শ্রেণির|শ্রেণীর|নাস্তার|বেশি|আজকে|বোর্ডিং|পরবর্তী|এক|দুই|তিন|চার|পাঁচ|ছয়|সাত|আট|নয়|দশ|একটা|দুইটা|তিনটা|চারটা|পাঁচটা|ছয়টা|সাতটা|আটটা|নয়টা|দশটা|শনিবার|রবিবার|সোমবার|মঙ্গলবার|বুধবার|বৃহস্পতিবার|শুক্রবার|ঢাকার|কালকের|খুলনার|সিলেটের|চট্টগ্রামের|বরিশালের|রংপুরের|যশোরের|সৈয়দপুরের|রাজশাহীর|বিজনেসক্লাস|দুপুরের|রাতের|সকালের|বিকালের|সন্ধ্যার ',
-	'Det->টি|সব|কোনো ',
-	'Wh->কত|কোন|কখন|কি|কোথায়|কবে ',
-	'IV->করতে|বাতিল|পেতে|পাওয়া|বাধতে|সাহায্য|সংরক্ষণ|বুকিং|করে|ভ্রমন|লাগতে|দেখতে|রাখতে|দিতে|জমা|জানতে|IV IV ',
-	'TV->চাই|পারি|সম্ভব|যাবে|আছে|পারেন|চান|রাখবেন|করবেন|দিবেন|পারে|পারি|রাখব|পারবেন|দিবেন|দেবেন|ছাড়বে|ছাড়ব|দেন|দিন|কাটব|হবে ',
-	'Modifier->Adverb Adjective ',
-	'Conj->ও|এবং|কিন্তু|পরে|পর ',
-	'Pre->থেকে|হতে|চেয়ে ',
-	'S->NP VP|NP Wh|NP Aux Adjective|NP Wh VP|NP VP Aux|Wh NP VP|Adverb VP ',
-	'S '
-]
+with open("input.txt",'r',encoding = 'utf-8') as f:
+    con = f.readlines()
+# reading from file
+
 print("Number of productions please : ")
 n = int(con[0])  # Number of productions
 inp_gram = []  # Here we store all the production rules
 new_production_rules = []  # Here new rules will be added
-mapping = {}  # Here terminals will be mapped to corresponding non-terminal,for example...S->aAS|aa|AS to S->XAS|XX|AS... "a" will be mapped to "X" here
+mapping = {}  # Here terminals will be mapped to corresponding non-terminal,for example...S->aAS|a|AS to S->XAS|XX|AS... "a" will be mapped to "X" here
 counter = 0  # For mapping to terminals, like Xk=X0; Xk=x1. so, Xk->a,Xk->b equivalent to X0->a,X1->b and so on.
 print("Grammer please : ")
 for i in range(1, n + 1):
@@ -200,8 +108,7 @@ inp_gram.append("S0->" + s0[0])  # S0->S will be appended
 while 1:
     chk = 0
     for i in range(len(inp_gram)):
-        if inp_gram[i].find(
-                "epsilon") != -1:  # if "epsilon" found call epsilon_remove with for which production "epsilon" found
+        if inp_gram[i].find("epsilon") != -1:  # if "epsilon" found call epsilon_remove with for which production "epsilon" found
             chk = 1
             new = inp_gram[i].replace("epsilon", "")  # "epsilon" removed from the production
             inp_gram.remove(inp_gram[i])  # production contains "epsilon" removed from the cfg
@@ -231,8 +138,7 @@ while is_done == 1:
                         inp_gram[i] = inp_gram[i] + str(r8_split[k]) + "|"
                     else:
                         is_done = 1
-                        r8_split[k] = unit_production_reduction(r8_split[k],
-                                                                i)  # sending unit production and production number
+                        r8_split[k] = unit_production_reduction(r8_split[k],i)  # sending unit production and production number
         tmp = inp_gram[i]
         while tmp[len(tmp) - 1] == "|":
             inp_gram[i] = tmp[:len(tmp) - 1]  # removing "|" from end of productions
@@ -250,8 +156,7 @@ for i in range(len(inp_gram)):
         string2_split = string2.split(" ")
         if len(string2_split) > 1:
             for k in range(len(string2_split)):
-                if string2_split[k] >= 'ক' and string2_split[k] <= 'ৎ' or string2_split[k] >= 'অ' and string2_split[
-                    k] <= 'ঔ':
+                if string2_split[k] >= 'ক' and string2_split[k] <= 'ৎ' or string2_split[k] >= 'অ' and string2_split[k] <= 'ঔ':
                     if string2_split[k] not in mapping:
                         mapping.update({"X" + str(counter): string2_split[k]})
                         string2 = string2.replace(string2_split[k], "X" + str(counter))
@@ -282,13 +187,13 @@ for i in range(len(inp_gram)):
 
 for x, y in mapping.items():
     inp_gram.append(x + "->" + y)
+
 # print(inp_gram)
 
 # Now lets start CYK Algorithm
 import numpy as ARRAY
 
-cnf_store = ARRAY.zeros((1000, 150),
-                        dtype=object)  # we'll store like S->A B|a like this; cnf_store[0][0]=S; [0][1]=A; [0][2]=B; [0][3]=a.
+cnf_store = ARRAY.zeros((500, 150), dtype=object)  # we'll store like S->A B|a like this; cnf_store[0][0]=S; [0][1]=A; [0][2]=B; [0][3]=a.
 for i in range(len(inp_gram)):
     k = 0  # We want to store [][k], [][k+1] ... in cnf_store
     fst_div = inp_gram[i].split("->")  # S->A B|a will split into S and A B|a
@@ -303,26 +208,35 @@ for i in range(len(inp_gram)):
 # print(cnf_store)
 # Now we'll receive input from you in bangla.
 # APP
+
 def getinput():
     xxx1 = entry1.get()
-    test = converter.Unicode()
-    xxx1 = test.convertBijoyToUnicode(xxx1)
+    #test = converter.Unicode()
+    #xxx1 = test.convertBijoyToUnicode(xxx1)
 
-    temporary = len(xxx1)
-    while (1):
-        if xxx1[temporary - 1] == " ":
-            xxx1[temporary - 1] == "";
-            temporary -= 1;
-            xxx1 = xxx1[0:temporary]
-        else:
-            break
-    xxx1 += " "
     print("Give the input language...")
     input_sentence = xxx1.split(" ")
+    #space handling
+    alt_input_sentence = []
+    for space in range(len(input_sentence)):
+        if input_sentence[space] != "" and input_sentence[space] != "|" and input_sentence[space] != "?" and input_sentence[space] != "।" and input_sentence[space] != "." and input_sentence[space] != "," and input_sentence[space] != "!":
+            alt_input_sentence.append(input_sentence[space])
+    alt_input_sentence.append(" ")
+    input_sentence = alt_input_sentence
+    xxxx1 = ""
+    for spxxx in range(len(input_sentence)-1):
+        xxxx1 += input_sentence[spxxx]
+        xxxx1 += " "
+    xxx1 = xxxx1
+    #Space Handling
+
     for_tabular_show = xxx1  # To show in tabular form
     print("Give start symbol...")
     st = con[n + 1]
     cnf_table = ARRAY.zeros((len(input_sentence) + 2, len(input_sentence)), dtype=object)
+    #To eliminate X** productions
+    print_cnf_table = ARRAY.zeros((len(input_sentence) + 2, len(input_sentence)), dtype=object)
+    # To eliminate X** productions
     for i in range(1, len(input_sentence)):
         positions = ARRAY.argwhere(cnf_store == input_sentence[i - 1])
         m = []  # latest change
@@ -363,7 +277,24 @@ def getinput():
     print(for_tabular_show)
     inp_sen = for_tabular_show
     inp_sen_sp = inp_sen.split(" ")
-    print(tabulate(cnf_table[1:len(input_sentence), 1:], headers=inp_sen_sp, tablefmt='orgtbl'))
+
+    # Eliminate X** productions
+    inp_sen_length = len(input_sentence)
+    for cc in range(inp_sen_length+2):
+        for ccc in range(inp_sen_length):
+            take_sen = cnf_table[cc][ccc]
+            if isinstance(take_sen, list):
+                new_list = []
+                for t_list in range(len(take_sen)):
+                    each_sen = take_sen[t_list]
+                    if each_sen[0] != 'X':
+                        new_list.append(each_sen)
+                print_cnf_table[cc][ccc] = new_list
+            else:
+                print_cnf_table[cc][ccc]=cnf_table[cc][ccc]
+    # Eliminate X** productions
+
+    print(tabulate(print_cnf_table[1:len(input_sentence), 1:], headers=inp_sen_sp, tablefmt='orgtbl'))
     # print(cnf_table[0:len(input_sentence)])
     start_symbol = st[0]
     # output_sentence
@@ -374,16 +305,16 @@ def getinput():
     label3 = tk.Label(root, text='The Parsing result is ', font=('helvetica', 14, 'bold'))
     canvas1.create_window(400, 310, window=label3)
 
-    label4 = tk.Label(root, text=tabulate(cnf_table[1:len(input_sentence), 1:], headers=inp_sen_sp, tablefmt='grid'),
-                      font=('helvetica', 10, 'bold'))
-    canvas1.create_window(400, 440, window=label4)
+    label4 = tk.Label(root, text=tabulate(print_cnf_table[1:len(input_sentence), 1:], headers=inp_sen_sp, tablefmt='grid'), font=('helvetica', 10, 'bold'))
+    canvas1.create_window(400, 500, window=label4)
 
-    label5 = tk.Label(root, text=output_sentence, font=('helvetica', 14, 'bold',))
-    canvas1.create_window(400, 590, window=label5)
+    messagebox.showwarning('Sentence Status', output_sentence)
 
-    button2 = tk.Button(root, text="Clear", command=lambda: clear_widget(label4,label5), bg='brown', fg='white',font=('helvetica', 12, 'bold'), width=20)
+    #label5 = tk.Label(root, text=output_sentence, font=('helvetica', 14, 'bold'))
+    #canvas1.create_window(400, 680, window=label5)
+
+    button2 = tk.Button(root, text="Clear", command=lambda: clear_widget(label4), bg='brown', fg='white',font=('helvetica', 12, 'bold'), width=20)
     canvas1.create_window(510, 270, window=button2)
-
 
 
 button1 = tk.Button(text='Click Me', command=getinput, bg='brown', fg='white', font=('helvetica', 12, 'bold'), width=20)
@@ -396,6 +327,3 @@ canvas1.create_window(300, 270, window=button1)
 
 
 root.mainloop()
-
-
-
